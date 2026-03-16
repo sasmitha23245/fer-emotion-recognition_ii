@@ -23,8 +23,9 @@ if option == "Upload Image":
 
     if uploaded_file is not None:
 
-        temp_file = tempfile.NamedTemporaryFile(delete=False)
+        temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.jpg')
         temp_file.write(uploaded_file.read())
+        temp_file.close()
 
         st.image(temp_file.name)
 
