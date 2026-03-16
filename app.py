@@ -30,10 +30,10 @@ if option == "Upload Image":
 
         if st.button("Detect Emotion"):
             subprocess.run(
-                ["python", "detect_realtime.py", "--image", temp_file.name]
+                [r"c:\Users\Sasmika\Desktop\fer_project - Copy\venv\Scripts\python.exe", "detect_realtime.py", "--image", temp_file.name]
             )
 
 elif option == "Open Webcam":
 
     if st.button("Start Webcam Detection"):
-        subprocess.run(["python", "detect_realtime.py"])
+        subprocess.run([r"c:\Users\Sasmika\Desktop\fer_project - Copy\venv\Scripts\python.exe", "detect_realtime.py"])
