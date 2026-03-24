@@ -31,7 +31,7 @@ def main():
     gpus = tf.config.list_physical_devices('GPU')
     print(f"[INFO] GPUs available: {len(gpus)}")
 
-    # ── Load & preprocess data ────────────────
+    # Load & preprocess data
     X, y = load_fer2013(args.csv)
     X_train, X_val, X_test, y_train, y_val, y_test = split_dataset(X, y)
 
@@ -44,7 +44,7 @@ def main():
     np.save(os.path.join(args.output_dir, 'X_test.npy'), X_test)
     np.save(os.path.join(args.output_dir, 'y_test.npy'), y_test)
 
-    # ── Class weights (handle FER2013 imbalance) ─
+    #Class weights (handle FER2013 imbalance)
     class_weights = compute_class_weight(
         class_weight='balanced',
         classes=np.unique(y_train),
@@ -53,12 +53,12 @@ def main():
     class_weight_dict = dict(enumerate(class_weights))
     print(f"[INFO] Class weights: {class_weight_dict}")
 
-    # ── Build & compile model ─────────────────
+    #Build & compile model
     model = build_cnn_model(input_shape=(48, 48, 1), num_classes=7)
     model = compile_model(model, learning_rate=args.lr)
     model.summary()
 
-    # ── Data augmentation ────────────────────
+    # Data augmentation
     augmentation = get_data_augmentation()
 
     # Build augmented training dataset
@@ -73,7 +73,7 @@ def main():
     val_ds = tf.data.Dataset.from_tensor_slices((X_val, y_val))
     val_ds = val_ds.batch(args.batch_size).prefetch(tf.data.AUTOTUNE)
 
-    # ── Train ────────────────────────────────
+    # Train
     model_save_path = os.path.join(args.output_dir, 'best_model.h5')
     callbacks = get_callbacks(model_save_path)
 
@@ -87,7 +87,7 @@ def main():
         verbose=1
     )
 
-    # ── Final evaluation on test set ──────────
+    #Final evaluation on test set
     test_ds = tf.data.Dataset.from_tensor_slices((X_test, y_test))
     test_ds = test_ds.batch(args.batch_size)
 
