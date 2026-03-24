@@ -214,27 +214,34 @@ if mode == "Upload Image":
                 else:
                     st.warning("No faces detected in the image. Please try another image.")
 
-elif mode == "Open Webcam":
+elif mode == "🎥 Open Webcam":
     st.markdown('<div class="section-title">🎥 Real-Time Detection</div>', unsafe_allow_html=True)
     
     col1, col2 = st.columns([2, 1])
     
     with col1:
         st.markdown("""
-        ###  Webcam Instructions
-        Click the button below to start real-time facial emotion detection:
-        - **Q** to quit
-        - **S** to save frame
+        ### 📹 Webcam Instructions
+        Click the button to open your webcam for real-time emotion detection:
+        
+        **Controls:**
+        - **Q** - Quit/Close webcam
+        - **S** - Save current frame
+        
+        **Note:** A separate window will open with the webcam feed and emotion detection overlay.
         """)
     
     with col2:
         st.markdown("### 🎮 Controls")
         if st.button(
-            "▶ Start Webcam",
+            "▶️ Start Webcam Detection",
             type="primary",
             use_container_width=True,
-            help="Open webcam for real-time emotion detection"
+            help="Opens webcam in a new window for real-time emotion detection"
         ):
-            with st.spinner("🎥 Starting webcam detection..."):
+            st.info("🎥 Webcam window is opening... Check your screen for the webcam feed!")
+            
+            with st.spinner("⏳ Running real-time detection..."):
                 subprocess.run([r"c:\Users\Sasmika\Desktop\fer_project - Copy\venv\Scripts\python.exe", "detect_realtime.py"])
-            st.success("Webcam detection completed!")
+            
+            st.success("✅ Webcam detection completed! Any saved frames are in your project folder.")
