@@ -39,7 +39,7 @@ def apply_edge_enhancement(image):
     return enhanced
 
 
-#  Full Preprocessing Pipeline
+#  Full Preprocessing Pipeline .
 def preprocess_image(image, target_size=(48, 48)):
    
     # Resize
